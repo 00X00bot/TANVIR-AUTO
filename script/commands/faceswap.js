@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports.config = {
-  name: `faceswap`,
+  name: `facemix`,
   version: "1.1.0",
   permission: 0,
   credits: "churchill",
@@ -20,7 +20,7 @@ module.exports.config = {
 
 module.exports.run = async function({ api, event }) {
     if (!event.messageReply || !event.messageReply.attachments || event.messageReply.attachments.length < 2) {
-        return api.sendMessage('Please reply to two image attachments with "faceswap".', event.threadID, event.messageID);
+        return api.sendMessage('Please reply to two image.', event.threadID, event.messageID);
     }
 
     const attachments = event.messageReply.attachments;
@@ -33,7 +33,7 @@ module.exports.run = async function({ api, event }) {
 
     const apiUrl = `https://kaiz-apis.gleeze.com/api/faceswap?swapUrl=${encodeURIComponent(img1)}&baseUrl=${encodeURIComponent(img2)}`;
 
-    api.sendMessage('Swapping faces... Please wait.', event.threadID, event.messageID);
+    api.sendMessage('mixing two image...', event.threadID, event.messageID);
 
     try {
         const response = await axios({
@@ -46,7 +46,7 @@ module.exports.run = async function({ api, event }) {
         fs.writeFileSync(filePath, response.data);
 
         await api.sendMessage({
-            body: 'Here is the face-swapped image:',
+            body: 'Thanks for using TanvirBot',
             attachment: fs.createReadStream(filePath),
         }, event.threadID, event.messageID);
 
