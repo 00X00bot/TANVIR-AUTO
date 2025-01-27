@@ -3,14 +3,14 @@ const fs = require('fs-extra');
 const path = require('path');
 
 module.exports.config = {
-    name: "ytmp3",
+    name: "sing",
     version: "1.0.0",
     permission: 0,
     credits: "owner",
     premium: false,
     description: "Send Youtube Music",
-    prefix: false,
-    category: "without prefix",
+    prefix: true,
+    category: "media",
     usages: `ytmp3 [music title]`,
     cooldowns: 5,
     dependencies: {
@@ -22,7 +22,7 @@ module.exports.config = {
 module.exports.run = async function({ api, event, args }) {
     const chilli = args.join(' ');
     if (!chilli) {
-        return api.sendMessage('Please provide a song, for example: ytmp3 Selos', event.threadID, event.messageID);
+        return api.sendMessage('Please provide a song, for example: .sing adat', event.threadID, event.messageID);
     }
     const apiUrl1 = `https://betadash-search-download.vercel.app/yt?search=${encodeURIComponent(chilli)}`;
     try {
@@ -37,7 +37,7 @@ module.exports.run = async function({ api, event, args }) {
         const maanghang = response.data;
 
         if (!maanghang || !maanghang.audio) {
-            return api.sendMessage('No song found for your search. Please try again with a different query.', event.threadID, event.messageID);
+            return api.sendMessage('𝘯𝘰 𝘴𝘰𝘯𝘨 𝘧𝘰𝘶𝘯𝘥 𝘪𝘯 𝘵𝘩𝘪𝘴 𝘬𝘦𝘺𝘸𝘰𝘳𝘥..', event.threadID, event.messageID);
         }
         const bundat = maanghang.audio;
         const fileName = `${maanghang.title}.mp3`;
@@ -50,7 +50,7 @@ module.exports.run = async function({ api, event, args }) {
         const writer = fs.createWriteStream(filePath);
         downloadResponse.data.pipe(writer);
         writer.on('finish', async () => {
-            api.sendMessage(`title: ${maanghang.title}\n\ndownload link: ${maanghang.audio}\n\nuploader: ${channel}`, event.threadID, event.messageID);
+            api.sendMessage(`𝘚𝘦𝘯𝘥𝘪𝘯𝘨 𝘺𝘰𝘶𝘳 𝘢𝘶𝘥𝘪𝘰...`, event.threadID, event.messageID);
             api.sendMessage({
                 attachment: fs.createReadStream(filePath)
             }, event.threadID, () => {
@@ -58,10 +58,10 @@ module.exports.run = async function({ api, event, args }) {
             }, event.messageID);
         });
         writer.on('error', () => {
-            api.sendMessage('There was an error downloading the file. Please try again later.', event.threadID, event.messageID);
+            api.sendMessage('API DOWN, PLEASE TRY AGAIN LATER.', event.threadID, event.messageID);
         });
     } catch (pogi) {
-        console.error('Error fetching song:', pogi);
-        api.sendMessage('An error occurred while fetching the song. Please try again later.', event.threadID, event.messageID);
+        console.error('API DOWN', pogi);
+        api.sendMessage('UNKNOWN ERROR...', event.threadID, event.messageID);
     }
 };
