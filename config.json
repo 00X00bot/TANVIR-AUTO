@@ -6,10 +6,10 @@
   "autocreatedb": true,
   "approval": false,
   "premium": false,
-  "autopost": true,
-  "email": "sanjivfresh@gmail.com",
+  "autopost": false,
+  "email": "tanbir143bot@gmail.com",
   "operators": [
-    "100091459940475"
+    "100032407831557"
   ],
   "autorestart": {
     "status": false,
