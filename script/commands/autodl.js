@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "autodl",
 	version: "1.0.0",
 	permission: 0,
-	credits: "ryuko",
+	credits: "ryukot",
 	premium: false,
 	description: "none",
 	prefix: false,
