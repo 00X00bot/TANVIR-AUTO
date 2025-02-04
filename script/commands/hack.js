@@ -48,7 +48,7 @@ module.exports.run = async function ({ args, Users, Threads, api, event, Currenc
   let pathImg = __dirname + "/cache/tanvirBG.png";
   let pathAvt1 = __dirname + "/cache/tanvirAVT.png";
 
-
+try{
   var id = Object.keys(event.mentions)[0] || event.senderID;
   var name = await Users.getNameUser(id);
   var ThreadInfo = await api.getThreadInfo(event.threadID);
@@ -99,4 +99,6 @@ module.exports.run = async function ({ args, Users, Threads, api, event, Currenc
       event.threadID,
       () => fs.unlinkSync(pathImg),
       event.messageID);
-    }
+} catch(tanvir) { 
+  api.sendMessage(`${tanvit.message}`, event.threadID, event.messageID)}
+}
